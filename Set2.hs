@@ -55,3 +55,35 @@ dupli (x:xs) = x:x:dupli xs
 repli :: [a] -> Int -> [a]
 repli [] _     = []
 repli (x:xs) n = replicate n x ++ repli xs n
+
+-- Ex 16: Drop every N'th element from a list.
+
+dropEvery :: [a] -> Int -> [a]
+dropEvery xs n = take (n-1) xs ++ dropEvery (drop n xs) n
+
+-- Ex 17: Split a list into two parts; the length of the first part is given.
+
+split :: [a] -> Int -> ([a], [a])
+split xs n = (take n xs, drop n xs)
+
+-- Ex 18: Extract a slice from a list.
+
+slice :: [a] -> Int -> Int -> [a]
+slice xs start stop = (take (stop - start + 1) . drop (start-1)) xs
+
+-- Ex 19: Rotate a list N places to the left.
+-- Hint: Use the predefined functions length and (++).
+
+rotate :: [a] -> Int -> [a]
+rotate xs n = drop t xs ++ take t xs
+    where t = if n >= 0
+              then n
+              else length xs + n
+
+-- Ex 20: Remove the K'th element from a list.
+
+removeAt :: Int -> [a] -> (a, [a])
+removeAt k xs = (last a, init a ++ b)
+    where (a,b) = splitAt k xs
+
+
